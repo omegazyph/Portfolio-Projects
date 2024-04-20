@@ -13,8 +13,6 @@ from cryptography.fernet import Fernet
 
 
 
-
-
 class Application(tk.Tk):
     def __init__(self):
         super().__init__()
@@ -22,28 +20,36 @@ class Application(tk.Tk):
         self.geometry("400x300")  # Set the initial size of the window
         self.configure(background="#f0f0f0")  # Set background color
 
-
+        """ will fill in later
         # Load the background image
         self.background_image = PhotoImage(file="background_image.png")  # Change "background_image.png" to your image file
         self.background_label = tk.Label(self, image=self.background_image)
         self.background_label.place(x=0, y=0, relwidth=1, relheight=1)
-
+        """
         # Create widgets
-        self.label = tk.Label(self, text="Welcome to Password Manager V3.0", 
+        self.welome_label = tk.Label(self, text="Welcome to Password Manager V3.0", 
                               font=("Helvetica", 16), 
                               bg="#f0f0f0", 
                               fg="#333333")  # Set background and foreground color
-        self.label.pack(pady=20)
+        self.welcome_label.pack(pady=20)
 
-        self.button = tk.Button(self, text="Click Me!", 
-                                command=self.on_button_click, 
-                                bg="#008CBA", 
-                                fg="white")  # Set button colors
-        self.button.pack()
+         # Create widgets
+        self.button1 = tk.Button(self, text="Button 1", width=10)
+        self.button1.pack(side=tk.LEFT, padx=5)  # Place button 1 on the left with some padding
 
-    def on_button_click(self):
-        self.label.config(text="Button clicked!")
+        self.button2 = tk.Button(self, text="Button 2", width=10)
+        self.button2.pack(side=tk.LEFT, padx=5)  # Place button 2 on the left with some padding
 
+        self.button3 = tk.Button(self, text="Button 3", width=10)
+        self.button3.pack(side=tk.LEFT, padx=5)  # Place button 3 on the left with some padding
+
+
+    # Function to generate and write a new key to a file
+    def write_key():
+        key = Fernet.generate_key()
+        with open("key.key", 'wb') as key_file:
+            key_file.write(key)
+            print('Wrote a new key')
 
 
 
