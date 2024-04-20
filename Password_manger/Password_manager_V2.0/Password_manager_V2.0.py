@@ -1,6 +1,6 @@
 from cryptography.fernet import Fernet
 
-
+# Function to set text color for terminal output
 def bcolor(color):
     colors = {
         'green': '\033[92m',
@@ -11,42 +11,20 @@ def bcolor(color):
     }
     return colors.get(color.lower(), '')
 
-# Example usage
+# Example usage of color function
 green_code = bcolor('green')
 red_code = bcolor('red')
 yellow_code = bcolor('yellow')
 white_code = bcolor('white')
 blue_code = bcolor('blue')
-'''
-print(green_code + "This is green text")
-print(red_code + "This is red text")
-print(yellow_code + "This is yellow text")
 
-# Reset color
-print('\033[0m')
-'''
-
-
+# Function to display banner
 def banner():
     print(blue_code + """
+    Your banner here
+    """)
 
-
-                                ____                                      _ 
-                                |  _ \ __ _ ___ _____       _____  _ __ __| |
-                                | |_) / _` / __/ __ \ \ /\ / / _ \| '__/ _` |
-                                |  __/ (_| \__ \__ \ \ V  V / (_) | | | (_| |
-                                |_|  _\__,_|___/___/  \_/\_/ \___/|_|  \__,_|
-                                |  \/  | __ _ _ __   __ _  __ _  ___ _ __   
-                                | |\/| |/ _` | '_ \ / _` |/ _` |/ _ \ '__|  
-                                | |  | | (_| | | | | (_| | (_| |  __/ |     
-                                |_|  |_|\__,_|_| |_|\__,_|\__, |\___|_|     
-                                                        |___/             
-                                version 2.0
-                                By omegazyph
-
-
-          
-""")
+# Printing banner
 banner()
 
 # Function to generate and write a new key to a file
@@ -82,7 +60,7 @@ count = 0
 
 while count < 3:
     master_pwd = input(green_code + "What is the master password? :> ")
-    if master_pwd =="hello":
+    if master_pwd =="hello":  # Replace "hello" with your actual master password
         key = load_key()
         fer = Fernet(key)
         break
@@ -92,11 +70,6 @@ while count < 3:
 if count == 3:
     print(yellow_code + "GoodBye")
     quit() 
-
-# Function to create a password (not implemented)
-def create_pwd():
-    """Function to create a password (not implemented yet)."""
-    pass
 
 # Function to view existing passwords
 def view():
@@ -123,6 +96,7 @@ def view():
 
 # Function to add a new password
 def add():
+    """Function to add a new password."""
     name = input(white_code + "Account Name: ")
     if '|' in name:
         print(red_code + "Please do not use '|' character in the account name.")
