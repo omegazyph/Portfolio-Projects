@@ -27,21 +27,21 @@ class Application(tk.Tk):
         self.background_label.place(x=0, y=0, relwidth=1, relheight=1)
         """
         # Create widgets
-        self.welome_label = tk.Label(self, text="Welcome to Password Manager V3.0", 
+        self.welcome_label = tk.Label(self, text="Welcome to Password Manager V3.0", 
                               font=("Helvetica", 16), 
                               bg="#f0f0f0", 
                               fg="#333333")  # Set background and foreground color
         self.welcome_label.pack(pady=20)
 
          # Create widgets
-        self.button1 = tk.Button(self, text="Button 1", width=10)
+        self.button1 = tk.Button(self, text="Create a Key")
         self.button1.pack(side=tk.LEFT, padx=5)  # Place button 1 on the left with some padding
 
-        self.button2 = tk.Button(self, text="Button 2", width=10)
-        self.button2.pack(side=tk.LEFT, padx=5)  # Place button 2 on the left with some padding
+        self.add = tk.Button(self, text="Add a password")
+        self.add.pack(side=tk.LEFT, padx=5)  # Place button 2 on the left with some padding
 
-        self.button3 = tk.Button(self, text="Button 3", width=10)
-        self.button3.pack(side=tk.LEFT, padx=5)  # Place button 3 on the left with some padding
+        self.view = tk.Button(self, text="View Passwords")
+        self.view.pack(side=tk.LEFT, padx=5)  # Place button 3 on the left with some padding
 
 
     # Function to generate and write a new key to a file
