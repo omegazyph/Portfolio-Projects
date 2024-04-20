@@ -8,7 +8,7 @@ class Application(tk.Tk):
         self.configure(background="#f0f0f0")  # Set background color
 
         # Create widgets
-        self.label = tk.Label(self, text="Hello, Tkinter!", 
+        self.label = tk.Label(self, text="Welcome to Password Manager V3.0", 
                               font=("Helvetica", 16), 
                               bg="#f0f0f0", 
                               fg="#333333")  # Set background and foreground color
