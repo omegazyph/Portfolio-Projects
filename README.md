@@ -18,10 +18,12 @@ In this repository, you'll find a diverse range of projects that I have worked o
 
 Below is a list of projects included in this repository:
 
-1. **Project 1**: Brief description of Project 1.
-2. **Project 2**: Brief description of Project 2.
-3. **Project 3**: Brief description of Project 3.
-   *Add more projects as needed.*
+1. **Black_Jack**: This is a terminal-based program that allows you to play the classic casino card game from the command line.
+2. **Choose_your_own_adventure**: This is a story line project that i will be up dating once an while.
+3. **Password_manager**: This Porject i have two version upcoming more this program will store your programs on site and encode them using Fernet for encryption more coming soon.
+4. **Number_quesser** : This program choise a number and you have to quess it might update it later time.
+5. **Quiz_Game**: This program Quizes the user in the computer system, might update at a later time.
+6. **Rock_paper_Scissors**: This program is a classic game, might update it in a later time.
 
 Each project directory contains its own README file with detailed information about the project.
 
