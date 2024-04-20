@@ -7,7 +7,9 @@
 
 # Imports
 import tkinter as tk
+from tkinter import PhotoImage
 from cryptography.fernet import Fernet
+
 
 
 
@@ -19,6 +21,12 @@ class Application(tk.Tk):
         self.title("Password Manager V3.0")
         self.geometry("400x300")  # Set the initial size of the window
         self.configure(background="#f0f0f0")  # Set background color
+
+
+        # Load the background image
+        self.background_image = PhotoImage(file="background_image.png")  # Change "background_image.png" to your image file
+        self.background_label = tk.Label(self, image=self.background_image)
+        self.background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
         # Create widgets
         self.label = tk.Label(self, text="Welcome to Password Manager V3.0", 
