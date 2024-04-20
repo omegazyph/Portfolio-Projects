@@ -3,7 +3,7 @@ import tkinter as tk
 class Application(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title("Tkinter Application")
+        self.title("Password Manager V3.0")
         self.geometry("400x300")  # Set the initial size of the window
 
         # Create widgets
