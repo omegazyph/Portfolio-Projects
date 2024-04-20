@@ -1,4 +1,17 @@
+########################################################
+# Password Manger V 3.0
+# created by Wayne Stock (omegazyph)
+# created 2024-04-20
+# This program is in tkinker to help with your passwords 
+########################################################
+
+# Imports
 import tkinter as tk
+from cryptography.fernet import Fernet
+
+
+
+
 
 class Application(tk.Tk):
     def __init__(self):
@@ -22,6 +35,16 @@ class Application(tk.Tk):
 
     def on_button_click(self):
         self.label.config(text="Button clicked!")
+
+
+
+
+
+
+
+
+
+
 
 if __name__ == "__main__":
     app = Application()
