@@ -1,15 +1,16 @@
 from cryptography.fernet import Fernet
 
-print("do not use | ")
+print("do not use | ")  # Print a warning message
 
 # Function to generate and write a new key to a file
-''' run if need a Key
+'''
 def write_key():
     key = Fernet.generate_key()
     with open("key.key", 'wb') as key_file:
         key_file.write(key)
         print ('wrote a new new')
-write_key()'''
+write_key()
+'''
 
 # Function to load the key from the file
 def load_key():
@@ -33,7 +34,8 @@ def view():
         for line in f.readlines():
             data = line.rstrip()
             user, passw = data.split("|")
-            print("User:",user, "| Password:", fer.decrypt(passw.encode()).decode())
+            # Decrypting and printing the username and password
+            print("User:", user, "| Password:", fer.decrypt(passw.encode()).decode())
 
 # Function to add a new password
 def add():
@@ -41,6 +43,7 @@ def add():
     pwd = input("Password :> ")
 
     with open('passwords.txt', 'a') as f:
+        # Encrypting and writing the new account name and password to the file
         f.write(name + '|' + fer.encrypt(pwd.encode()).decode() + "\n")
 
 # Main loop for interacting with the user
