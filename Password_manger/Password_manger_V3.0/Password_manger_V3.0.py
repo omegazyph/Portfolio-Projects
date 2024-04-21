@@ -9,6 +9,7 @@
 import tkinter as tk
 from tkinter import PhotoImage
 from cryptography.fernet import Fernet
+import tkinter.messagebox
 
 
 
@@ -34,8 +35,8 @@ class Application(tk.Tk):
         self.welcome_label.pack(pady=20)
 
          # Create widgets
-        self.button1 = tk.Button(self, text="Create a Key")
-        self.button1.pack(side=tk.LEFT, padx=5)  # Place button 1 on the left with some padding
+        self.write = tk.Button(self, text="Create a Key", command= write.write_key)
+        self.write.pack(side=tk.LEFT, padx=5)  # Place button 1 on the left with some padding
 
         self.add = tk.Button(self, text="Add a password")
         self.add.pack(side=tk.LEFT, padx=5)  # Place button 2 on the left with some padding
@@ -44,13 +45,22 @@ class Application(tk.Tk):
         self.view.pack(side=tk.LEFT, padx=5)  # Place button 3 on the left with some padding
 
 
-    # Function to generate and write a new key to a file
-    def write_key():
-        key = Fernet.generate_key()
-        with open("key.key", 'wb') as key_file:
-            key_file.write(key)
-            print('Wrote a new key')
+   
 
+class write:
+    # Function to generate and write a new key to a file
+    @staticmethod
+    def write_key():
+        # Display a warning message
+        result = tkinter.messagebox.askquestion("Create Key", "Are you sure you want to create a new key?")
+        if result == "yes":
+            key = Fernet.generate_key()
+            with open("key.key", 'wb') as key_file:
+                key_file.write(key)
+                tkinter.messagebox.showinfo("Key Created", "A new key has been successfully created.")
+        else:
+            tkinter.messagebox.showinfo("Cancelled", "Key creation has been cancelled.")
+        
 
 
 
