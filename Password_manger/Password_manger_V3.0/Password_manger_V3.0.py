@@ -144,7 +144,7 @@ class add:
                 continue
             else:
                 with open('passwords.txt', 'a') as file:
-                    file.write(site + "\n" + username + ' | ' + fer.encrypt(pwd.encode()).decode() + "\n")
+                    file.write(site + '|' + username + ' | ' + fer.encrypt(pwd.encode()).decode() + "\n")
                 break
 
 # Placeholder for viewing passwords functionality
@@ -154,11 +154,11 @@ class View:
         key = LoadKey.load_key()
         fer = Fernet(key)
         try:
-            with open('passwords.txt', 'r') as f:
-                for line in f.readlines():
+            with open('passwords.txt', 'r') as file:
+                for line in file.readlines():
                     data = line.rstrip()
-                    site, username, pwd = data.split("|")
-                    print("Site:",site,"User:", username, "| Password:", fer.decrypt(pwd.encode()).decode())
+                    site,user, passw = data.split("|")
+                    print("Site:", site, "| User:", user, "| Password:", fer.decrypt(passw.encode()).decode())
 
         except FileNotFoundError:
             # If password file doesn't exist, prompt user to create one
