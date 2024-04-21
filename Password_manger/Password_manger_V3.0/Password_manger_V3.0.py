@@ -13,6 +13,11 @@ import tkinter.messagebox
 from tkinter import simpledialog
 
 
+# Define the master password
+MASTER_PASSWORD = "12345"
+
+
+
 
 class Application(tk.Tk):
     def __init__(self):
@@ -20,7 +25,8 @@ class Application(tk.Tk):
         self.title("Password Manager V3.0")
         self.geometry("400x300")  # Set the initial size of the window
         self.configure(background="#f0f0f0")  # Set background color
-
+        self.check_master_password()  # Check the master password
+        
         """ will fill in later
         # Load the background image
         self.background_image = PhotoImage(file="background_image.png")  # Change "background_image.png" to your image file
@@ -44,8 +50,21 @@ class Application(tk.Tk):
         self.view = tk.Button(self, text="View Passwords")
         self.view.pack(side=tk.LEFT, padx=5)  # Place button 3 on the left with some padding
 
+    def check_master_password(self):
+        # Prompt the user for the master password
+        while True:
+            master_pwd = simpledialog.askstring("Master Password", 
+                                                "Enter the master password to access the program:")
+            if master_pwd == MASTER_PASSWORD:
+                key = LoadKey.load_key()
+                fer = Fernet(key)
+                break  # Correct master password, exit the loop
+            elif master_pwd is None:
+                self.destroy()  # User closed the dialog, close the program
+            else:
+                tk.messagebox.showerror("Incorrect Password", "Incorrect master password. Please try again.")
 
-   
+
 
 class write:
     @staticmethod
@@ -105,9 +124,6 @@ class add:
             if site == "":
                 tkinter.messagebox.showerror("Error","Site can not be empty!")
                 continue
-            if '|' in site:
-                tkinter.messagebox.showerror("Error","Please do not use '|' character in the account name.")
-                continue
             else:
                 break
         
@@ -117,9 +133,7 @@ class add:
             if username == "":
                 tkinter.messagebox.showerror("Error","Username can not be empty!")
                 continue
-            if '|' in username:
-                tkinter.messagebox.showerror("Error","Please do not use '|' character in the account name.")
-                continue
+            
             else:
                 break
         
@@ -130,12 +144,10 @@ class add:
                 tkinter.messagebox.showerror("Error","Password can not be empty!")
                 continue
             else:
+                with open('passwords.txt', 'a') as f:
+                    f.write(site + "\n" + username + ' | ' + Application.fer.encrypt(pwd.encode()).decode() + "\n")
                 break
 
-'''     
-        with open('passwords.txt', 'a') as f:
-            f.write(name + '|' + fer.encrypt(pwd.encode()).decode() + "\n")
-'''
 
 
 
