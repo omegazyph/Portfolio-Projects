@@ -45,7 +45,7 @@ class Application(tk.Tk):
         self.add = tk.Button(self, text="Add a password", command=add.add)
         self.add.pack(side=tk.LEFT, padx=5)  # Place button 2 on the left with some padding
 
-        self.view = tk.Button(self, text="View Passwords", command=View.view)
+        self.view = tk.Button(self, text="View Passwords", command=self.view_passwords)
         self.view.pack(side=tk.LEFT, padx=5)  # Place button 3 on the left with some padding
 
     def check_master_password(self):
@@ -60,6 +60,17 @@ class Application(tk.Tk):
             else:
                 tk.messagebox.showerror("Incorrect Password", "Incorrect master password. Please try again.")
 
+    def view_passwords(self):
+        # Create a new Window to display passwords
+        passwords_window = tk.Toplevel(self)
+        passwords_window.title("Password List")
+
+        # Create a text widget to display passwords
+        text_widget = tk.Text(passwords_window)
+        text_widget.pack(fill=tk.BOTH, expand=True)
+
+        # display passwords in the text wiget
+        View.display_passwords(text_widget)
 
 class write:
     @staticmethod
@@ -150,17 +161,17 @@ class add:
 
 # Placeholder for viewing passwords functionality
 class View:
-    # Function to view existing passwords
-    def view():
+    def display_passwords(text_widget):
         key = LoadKey.load_key()
         fer = Fernet(key)
         try:
             with open('passwords.txt', 'r') as file:
                 for line in file.readlines():
                     data = line.rstrip()
-                    site,user, passw = data.split("|")
-                    print("Site:", site, "| User:", user, "| Password:", fer.decrypt(passw.encode()).decode())
-            
+                    site, user, password = data.split("|")
+                    decrypted_password = fer.decrypt(password.encode()).decode()
+                    text_widget.insert(tk.END, f"Site: {site}\nUser: {user}\nPassword: {decrypted_password}\n\n")
+
         except FileNotFoundError:
             # If password file doesn't exist, prompt user to create one
             choice = tkinter.messagebox.askquestion("Error","Can't find the password file. Would you like to create one?")
