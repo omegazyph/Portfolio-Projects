@@ -75,7 +75,27 @@ class write:
             tkinter.messagebox.showerror("Error", f"An error occurred: {str(e)}")
         
 class LoadKey:
-    pass
+    # Function to load the key from the file
+    def load_key():
+        try:
+            file = open("key.key", 'rb')
+            key = file.read()
+            file.close()
+            return key 
+        except FileNotFoundError:
+            print(yellow_code + "Key file not found")
+            # Prompt user to create a new key if it doesn't exist
+            choice = input(green_code + "Would you like to create a key? (yes/no) <: ")
+            if choice == "yes":
+                write_key()
+                print(yellow_code + "You need to restart the program")
+                quit()
+            else:
+                print(yellow_code + "If you already have a key, put it in the current working directory")
+                quit()
+
+
+
 
 class add:
     pass
