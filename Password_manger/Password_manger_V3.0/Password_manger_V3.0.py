@@ -121,7 +121,9 @@ class add:
         # site input
         while True:
             site = simpledialog.askstring("Site Name", "Enter the name of the site you wish to add:")
-            if site == "":
+            if site is None:
+                return
+            elif site == "":
                 tkinter.messagebox.showerror("Error","Site can not be empty!")
                 continue
             else:
@@ -130,6 +132,8 @@ class add:
         # Username input
         while True:
             username = simpledialog.askstring("Username", "Enter the username of the site you wish to add:")
+            if username is None:
+                return
             if username == "":
                 tkinter.messagebox.showerror("Error","Username can not be empty!")
                 continue
@@ -140,6 +144,8 @@ class add:
         # Password input
         while True:
             pwd = simpledialog.askstring("Password", "Enter the password of the site you wish to add:")
+            if pwd is None:
+                return
             if pwd == "":
                 tkinter.messagebox.showerror("Error","Password can not be empty!")
                 continue
