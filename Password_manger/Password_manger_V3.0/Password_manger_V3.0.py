@@ -14,7 +14,7 @@ from tkinter import simpledialog
 
 
 # Define the master password
-MASTER_PASSWORD = "12345"
+MASTER_PASSWORD = ""
 
 
 
@@ -60,7 +60,7 @@ class Application(tk.Tk):
                 fer = Fernet(key)
                 break  # Correct master password, exit the loop
             elif master_pwd is None:
-                self.destroy()  # User closed the dialog, close the program
+                return  # User closed the dialog, close the program
             else:
                 tk.messagebox.showerror("Incorrect Password", "Incorrect master password. Please try again.")
 
