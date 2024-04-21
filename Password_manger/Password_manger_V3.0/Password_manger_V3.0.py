@@ -56,8 +56,6 @@ class Application(tk.Tk):
             master_pwd = simpledialog.askstring("Master Password", 
                                                 "Enter the master password to access the program:")
             if master_pwd == MASTER_PASSWORD:
-                key = LoadKey.load_key()
-                fer = Fernet(key)
                 break  # Correct master password, exit the loop
             elif master_pwd is None:
                 return  # User closed the dialog, close the program
@@ -118,6 +116,8 @@ class LoadKey:
 class add:
     def add():
         # Create a popup window for user input
+        key = LoadKey.load_key()
+        fer = Fernet(key)
         # site input
         while True:
             site = simpledialog.askstring("Site Name", "Enter the name of the site you wish to add:")
@@ -150,8 +150,8 @@ class add:
                 tkinter.messagebox.showerror("Error","Password can not be empty!")
                 continue
             else:
-                with open('passwords.txt', 'a') as f:
-                    f.write(site + "\n" + username + ' | ' + Application.fer.encrypt(pwd.encode()).decode() + "\n")
+                with open('passwords.txt', 'a') as file:
+                    file.write(site + "\n" + username + ' | ' + fer.encrypt(pwd.encode()).decode() + "\n")
                 break
 
 
