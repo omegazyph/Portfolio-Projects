@@ -9,6 +9,10 @@ Programes i'm working on:
     4: choose_your_own_adventure.py
     
     5: password_manager_V3.0.py
-        need to find a backgound pic for the first page.
-        
-            
+        *need to find a backgound pic for the first page.
+        *need to work on load key
+        *need to work on 
+                with open('passwords.txt', 'a') as f:
+                    f.write(site + "\n" + username + ' | ' + {{{{{Application.fer}}}}}.encrypt(pwd.encode()).decode() + "\n")
+        *need to add view class
+        *thinking about adding a password create function for user
