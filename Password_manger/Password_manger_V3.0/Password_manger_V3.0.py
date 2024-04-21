@@ -150,15 +150,16 @@ class add:
 # Placeholder for viewing passwords functionality
 class View:
     # Function to view existing passwords
-    key = LoadKey.load_key()
-    fer = Fernet(key)
     def view():
+        key = LoadKey.load_key()
+        fer = Fernet(key)
         try:
             with open('passwords.txt', 'r') as f:
                 for line in f.readlines():
                     data = line.rstrip()
                     user, passw = data.split("|")
                     print("User:", user, "| Password:", fer.decrypt(passw.encode()).decode())
+
         except FileNotFoundError:
             # If password file doesn't exist, prompt user to create one
             choice = input("Can't find the password file. Would you like to create one? (yes/no) <:").lower()
