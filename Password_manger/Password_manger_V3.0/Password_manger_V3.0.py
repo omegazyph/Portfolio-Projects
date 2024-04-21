@@ -157,22 +157,19 @@ class View:
             with open('passwords.txt', 'r') as f:
                 for line in f.readlines():
                     data = line.rstrip()
-                    user, passw = data.split("|")
-                    print("User:", user, "| Password:", fer.decrypt(passw.encode()).decode())
+                    site, username, pwd = data.split("|")
+                    print("Site:",site,"User:", username, "| Password:", fer.decrypt(pwd.encode()).decode())
 
         except FileNotFoundError:
             # If password file doesn't exist, prompt user to create one
-            choice = input("Can't find the password file. Would you like to create one? (yes/no) <:").lower()
+            choice = tkinter.messagebox.askquestion("Error","Can't find the password file. Would you like to create one?")
             if choice == "yes":
-                print("Please enter:")
-                add()
+                add.add()
+
             elif choice == "no":
-                print("I need to create the file so I can store the passwords.")
-                print("If you have a file already, please put the file in the working directory.")
-                quit()
-            else:
-                print("Invalid selection")
-                quit()
+                tkinter.messagebox.showwarning("","You need to create the file so You  can store your passwords.")
+                tkinter.messagebox.showinfo("","If you have a file already, please put the file in the working directory.")
+                return
 
 
 # Entry point of the application
