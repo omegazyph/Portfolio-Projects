@@ -45,7 +45,7 @@ class Application(tk.Tk):
         self.add = tk.Button(self, text="Add a password", command=add.add)
         self.add.pack(side=tk.LEFT, padx=5)  # Place button 2 on the left with some padding
 
-        self.view = tk.Button(self, text="View Passwords")
+        self.view = tk.Button(self, text="View Passwords", command=View.view)
         self.view.pack(side=tk.LEFT, padx=5)  # Place button 3 on the left with some padding
 
     def check_master_password(self):
@@ -105,10 +105,6 @@ class LoadKey:
                                 
             else:
                 tkinter.messagebox.showinfo("info","If you already have a key, please put it in the current working directory")
-                
-
-
-
 
 class add:
     def add():
@@ -152,8 +148,31 @@ class add:
                 break
 
 # Placeholder for viewing passwords functionality
-class view:
-    pass
+class View:
+    # Function to view existing passwords
+    key = LoadKey.load_key()
+    fer = Fernet(key)
+    def view():
+        try:
+            with open('passwords.txt', 'r') as f:
+                for line in f.readlines():
+                    data = line.rstrip()
+                    user, passw = data.split("|")
+                    print("User:", user, "| Password:", fer.decrypt(passw.encode()).decode())
+        except FileNotFoundError:
+            # If password file doesn't exist, prompt user to create one
+            choice = input("Can't find the password file. Would you like to create one? (yes/no) <:").lower()
+            if choice == "yes":
+                print("Please enter:")
+                add()
+            elif choice == "no":
+                print("I need to create the file so I can store the passwords.")
+                print("If you have a file already, please put the file in the working directory.")
+                quit()
+            else:
+                print("Invalid selection")
+                quit()
+
 
 # Entry point of the application
 if __name__ == "__main__":
