@@ -48,21 +48,30 @@ class Application(tk.Tk):
    
 
 class write:
-    # Function to generate and write a new key to a file
     @staticmethod
     def write_key():
-        # Display a warning message
-        result = tkinter.messagebox.askquestion("Create Key", "Are you sure you want to create a new key?")
-        if result == "yes":
-            key = Fernet.generate_key()
-            with open("key.key", 'wb') as key_file:
-                key_file.write(key)
+        try:
+            # Display a warning message
+            result = tkinter.messagebox.askquestion("Create Key", "Are you sure you want to create a new key?")
+            if result == "yes":
+                key = Fernet.generate_key()
+                with open("key.key", 'wb') as key_file:
+                    key_file.write(key)
                 tkinter.messagebox.showinfo("Key Created", "A new key has been successfully created.")
-        else:
-            tkinter.messagebox.showinfo("Cancelled", "Key creation has been cancelled.")
+            else:
+                tkinter.messagebox.showinfo("Cancelled", "Key creation has been cancelled.")
+        except Exception as e:
+            tkinter.messagebox.showerror("Error", f"An error occurred: {str(e)}")
         
+class add:
+    pass
 
 
+
+
+
+class view:
+    pass
 
 
 
