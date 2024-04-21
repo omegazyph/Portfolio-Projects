@@ -10,7 +10,7 @@ import tkinter as tk
 from tkinter import PhotoImage
 from cryptography.fernet import Fernet
 import tkinter.messagebox
-
+from tkinter import simpledialog
 
 
 
@@ -38,7 +38,7 @@ class Application(tk.Tk):
         self.write = tk.Button(self, text="Create a Key", command= write.write_key)
         self.write.pack(side=tk.LEFT, padx=5)  # Place button 1 on the left with some padding
 
-        self.add = tk.Button(self, text="Add a password")
+        self.add = tk.Button(self, text="Add a password", command= add.add)
         self.add.pack(side=tk.LEFT, padx=5)  # Place button 2 on the left with some padding
 
         self.view = tk.Button(self, text="View Passwords")
@@ -98,7 +98,9 @@ class LoadKey:
 
 class add:
     def add():
-        name = input("Account Name: ")
+        # Create a popup window for user input
+        name = simpledialog.askstring("User Input", "Enter something:")
+'''       
         if '|' in name:
             print("Please do not use '|' character in the account name.")
             return   
@@ -108,7 +110,7 @@ class add:
             return
         with open('passwords.txt', 'a') as f:
             f.write(name + '|' + fer.encrypt(pwd.encode()).decode() + "\n")
-
+'''
 
 
 
