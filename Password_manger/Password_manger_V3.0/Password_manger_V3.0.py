@@ -78,27 +78,37 @@ class LoadKey:
     # Function to load the key from the file
     def load_key():
         try:
-            file = open("key.key", 'rb')
-            key = file.read()
-            file.close()
-            return key 
+            with open("key.key", 'rb') as file:
+                key = file.read()
+                return key 
+            
         except FileNotFoundError:
-            print(yellow_code + "Key file not found")
+            print("Key file not found")
             # Prompt user to create a new key if it doesn't exist
-            choice = input(green_code + "Would you like to create a key? (yes/no) <: ")
+            choice = input("Would you like to create a key? (yes/no) <: ")
             if choice == "yes":
-                write_key()
-                print(yellow_code + "You need to restart the program")
-                quit()
+                write.write_key()
+                                
             else:
-                print(yellow_code + "If you already have a key, put it in the current working directory")
-                quit()
+                print("If you already have a key, put it in the current working directory")
+                
 
 
 
 
 class add:
-    pass
+    def add():
+        name = input("Account Name: ")
+        if '|' in name:
+            print("Please do not use '|' character in the account name.")
+            return   
+        pwd = input("Password: ")
+        if '|' in pwd:
+            print("Please do not use '|' character in the account name.")
+            return
+        with open('passwords.txt', 'a') as f:
+            f.write(name + '|' + fer.encrypt(pwd.encode()).decode() + "\n")
+
 
 
 
