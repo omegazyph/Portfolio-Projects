@@ -99,15 +99,40 @@ class LoadKey:
 class add:
     def add():
         # Create a popup window for user input
-        name = simpledialog.askstring("User Input", "Enter something:")
-'''       
-        if '|' in name:
-            print("Please do not use '|' character in the account name.")
-            return   
-        pwd = input("Password: ")
-        if '|' in pwd:
-            print("Please do not use '|' character in the account name.")
-            return
+        # site input
+        while True:
+            site = simpledialog.askstring("Site Name", "Enter the name of the site you wish to add:")
+            if site == "":
+                tkinter.messagebox.showerror("Error","Site can not be empty!")
+                continue
+            if '|' in site:
+                tkinter.messagebox.showerror("Error","Please do not use '|' character in the account name.")
+                continue
+            else:
+                break
+        
+        # Username input
+        while True:
+            username = simpledialog.askstring("Username", "Enter the username of the site you wish to add:")
+            if username == "":
+                tkinter.messagebox.showerror("Error","Username can not be empty!")
+                continue
+            if '|' in username:
+                tkinter.messagebox.showerror("Error","Please do not use '|' character in the account name.")
+                continue
+            else:
+                break
+        
+        # Password input
+        while True:
+            pwd = simpledialog.askstring("Password", "Enter the password of the site you wish to add:")
+            if pwd == "":
+                tkinter.messagebox.showerror("Error","Password can not be empty!")
+                continue
+            else:
+                break
+
+'''     
         with open('passwords.txt', 'a') as f:
             f.write(name + '|' + fer.encrypt(pwd.encode()).decode() + "\n")
 '''
