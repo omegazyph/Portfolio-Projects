@@ -51,18 +51,32 @@ class write:
     @staticmethod
     def write_key():
         try:
-            # Display a warning message
+            # Display a warning message to confirm key creation
             result = tkinter.messagebox.askquestion("Create Key", "Are you sure you want to create a new key?")
             if result == "yes":
-                key = Fernet.generate_key()
-                with open("key.key", 'wb') as key_file:
-                    key_file.write(key)
-                tkinter.messagebox.showinfo("Key Created", "A new key has been successfully created.")
+                # Display a second warning message to confirm key replacement
+                result_confirm = tkinter.messagebox.askquestion("Confirmation", "Are you sure? This will replace your old key!")
+                if result_confirm == "yes":
+                    # Generate a new key
+                    key = Fernet.generate_key()
+                    # Write the new key to a file
+                    with open("key.key", 'wb') as key_file:
+                        key_file.write(key)
+                    # Display a success message
+                    tkinter.messagebox.showinfo("Key Created", "A new key has been successfully created.")
+                else:
+                    # Display a message indicating cancellation of key creation
+                    tkinter.messagebox.showinfo("Cancelled", "Key creation has been cancelled.")
             else:
+                # Display a message indicating cancellation of key creation
                 tkinter.messagebox.showinfo("Cancelled", "Key creation has been cancelled.")
         except Exception as e:
+            # Display an error message if an exception occurs
             tkinter.messagebox.showerror("Error", f"An error occurred: {str(e)}")
         
+class LoadKey:
+    pass
+
 class add:
     pass
 
