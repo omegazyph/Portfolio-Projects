@@ -145,6 +145,7 @@ class add:
             else:
                 with open('passwords.txt', 'a') as file:
                     file.write(site + '|' + username + ' | ' + fer.encrypt(pwd.encode()).decode() + "\n")
+                    tkinter.messagebox.showinfo("Saving.....","Password is saved")
                 break
 
 # Placeholder for viewing passwords functionality
@@ -159,7 +160,7 @@ class View:
                     data = line.rstrip()
                     site,user, passw = data.split("|")
                     print("Site:", site, "| User:", user, "| Password:", fer.decrypt(passw.encode()).decode())
-
+            
         except FileNotFoundError:
             # If password file doesn't exist, prompt user to create one
             choice = tkinter.messagebox.askquestion("Error","Can't find the password file. Would you like to create one?")
