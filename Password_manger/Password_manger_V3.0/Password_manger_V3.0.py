@@ -1,8 +1,8 @@
 ########################################################
-# Password Manger V 3.0
+# Password Manager V 3.0
 # created by Wayne Stock (omegazyph)
 # created 2024-04-20
-# This program is in tkinker to help with your passwords 
+# This program is in Tkinter to help with managing passwords 
 ########################################################
 
 # Imports
@@ -14,9 +14,7 @@ from tkinter import simpledialog
 
 
 # Define the master password
-MASTER_PASSWORD = "12345"
-
-
+MASTER_PASSWORD = "12345" # Replace with your desired master password
 
 
 class Application(tk.Tk):
@@ -25,7 +23,7 @@ class Application(tk.Tk):
         self.title("Password Manager V3.0")
         self.geometry("400x300")  # Set the initial size of the window
         self.configure(background="#f0f0f0")  # Set background color
-        #self.check_master_password()  # Check the master password
+        #self.check_master_password()  # Check the master password (commented out for testing)
         
         """ will fill in later
         # Load the background image
@@ -40,11 +38,11 @@ class Application(tk.Tk):
                               fg="#333333")  # Set background and foreground color
         self.welcome_label.pack(pady=20)
 
-         # Create widgets
-        self.write = tk.Button(self, text="Create a Key", command= write.write_key)
+         # Create buttons for different functionalities
+        self.write = tk.Button(self, text="Create a Key", command=write.write_key)
         self.write.pack(side=tk.LEFT, padx=5)  # Place button 1 on the left with some padding
 
-        self.add = tk.Button(self, text="Add a password", command= add.add)
+        self.add = tk.Button(self, text="Add a password", command=add.add)
         self.add.pack(side=tk.LEFT, padx=5)  # Place button 2 on the left with some padding
 
         self.view = tk.Button(self, text="View Passwords")
@@ -61,7 +59,6 @@ class Application(tk.Tk):
                 return  # User closed the dialog, close the program
             else:
                 tk.messagebox.showerror("Incorrect Password", "Incorrect master password. Please try again.")
-
 
 
 class write:
@@ -95,19 +92,19 @@ class LoadKey:
     # Function to load the key from the file
     def load_key():
         try:
-            with open("key.key", 'rb') as file:
+            with open("key.key",) as file:
                 key = file.read()
                 return key 
             
         except FileNotFoundError:
-            print("Key file not found")
+            tkinter.messagebox.showwarning("Warning","Key file not found")
             # Prompt user to create a new key if it doesn't exist
-            choice = input("Would you like to create a key? (yes/no) <: ")
+            choice = tkinter.messagebox.askquestion("Create Key","Would you like to create a key?")
             if choice == "yes":
                 write.write_key()
                                 
             else:
-                print("If you already have a key, put it in the current working directory")
+                tkinter.messagebox.showinfo("info","If you already have a key, please put it in the current working directory")
                 
 
 
@@ -118,7 +115,7 @@ class add:
         # Create a popup window for user input
         key = LoadKey.load_key()
         fer = Fernet(key)
-        # site input
+        # Site input
         while True:
             site = simpledialog.askstring("Site Name", "Enter the name of the site you wish to add:")
             if site is None:
@@ -154,20 +151,11 @@ class add:
                     file.write(site + "\n" + username + ' | ' + fer.encrypt(pwd.encode()).decode() + "\n")
                 break
 
-
-
-
-
-
+# Placeholder for viewing passwords functionality
 class view:
     pass
 
-
-
-
-
-
-
+# Entry point of the application
 if __name__ == "__main__":
     app = Application()
     app.mainloop()
