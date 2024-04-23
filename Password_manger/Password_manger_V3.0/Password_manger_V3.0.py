@@ -7,160 +7,130 @@
 
 # Imports
 import tkinter as tk
-from tkinter import PhotoImage
+from tkinter import messagebox, simpledialog, Text, Toplevel, Button, Label
 from cryptography.fernet import Fernet
-import tkinter.messagebox
-from tkinter import simpledialog
 
+# Master Password (Change this to your desired master password)
+MASTER_PASSWORD = "12345"
 
-# Define the master password
-MASTER_PASSWORD = "12345" # Replace with your desired master password
-
-
+# Main Application Class
 class Application(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("Password Manager V3.0")
-        self.geometry("400x300")  # Set the initial size of the window
-        self.configure(background="#f0f0f0")  # Set background color
-        #self.check_master_password()  # Check the master password (commented out for testing)
-        
-        """ will fill in later
-        # Load the background image
-        self.background_image = PhotoImage(file="background_image.png")  # Change "background_image.png" to your image file
-        self.background_label = tk.Label(self, image=self.background_image)
-        self.background_label.place(x=0, y=0, relwidth=1, relheight=1)
-        """
-        # Create widgets
-        self.welcome_label = tk.Label(self, text="Welcome to Password Manager V3.0", 
-                              font=("Helvetica", 16), 
-                              bg="#f0f0f0", 
-                              fg="#333333")  # Set background and foreground color
+        self.geometry("400x300")
+        self.configure(background="#f0f0f0")
+        # Uncomment the line below to enable master password checking
+        # self.check_master_password()
+
+        # Widgets
+        self.welcome_label = Label(self, text="Welcome to Password Manager V3.0", font=("Helvetica", 16), bg="#f0f0f0", fg="#333333")
         self.welcome_label.pack(pady=20)
+        
+        # Buttons for different functionalities
+        self.write = Button(self, text="Create a Key", command=write.write_key)
+        self.write.pack(side=tk.LEFT, padx=5)
+        self.add = Button(self, text="Add a password", command=add.add)
+        self.add.pack(side=tk.LEFT, padx=5)
+        self.view = Button(self, text="View Passwords", command=self.view_passwords)
+        self.view.pack(side=tk.LEFT, padx=5)
 
-         # Create buttons for different functionalities
-        self.write = tk.Button(self, text="Create a Key", command=write.write_key)
-        self.write.pack(side=tk.LEFT, padx=5)  # Place button 1 on the left with some padding
-
-        self.add = tk.Button(self, text="Add a password", command=add.add)
-        self.add.pack(side=tk.LEFT, padx=5)  # Place button 2 on the left with some padding
-
-        self.view = tk.Button(self, text="View Passwords", command=self.view_passwords)
-        self.view.pack(side=tk.LEFT, padx=5)  # Place button 3 on the left with some padding
-
+    # Master Password Validation
     def check_master_password(self):
-        # Prompt the user for the master password
         while True:
-            master_pwd = simpledialog.askstring("Master Password", 
-                                                "Enter the master password to access the program:")
+            master_pwd = simpledialog.askstring("Master Password", "Enter the master password to access the program:")
             if master_pwd == MASTER_PASSWORD:
-                break  # Correct master password, exit the loop
+                break
             elif master_pwd is None:
-                return  # User closed the dialog, close the program
+                self.destroy()
+                return
             else:
-                tk.messagebox.showerror("Incorrect Password", "Incorrect master password. Please try again.")
+                messagebox.showerror("Incorrect Password", "Incorrect master password. Please try again.")
 
+    # View Passwords Functionality
     def view_passwords(self):
-        # Create a new Window to display passwords
-        passwords_window = tk.Toplevel(self)
+        passwords_window = Toplevel(self)
         passwords_window.title("Password List")
-
-        # Create a text widget to display passwords
-        text_widget = tk.Text(passwords_window)
+        text_widget = Text(passwords_window)
         text_widget.pack(fill=tk.BOTH, expand=True)
-
-        # display passwords in the text wiget
         View.display_passwords(text_widget)
 
+# Write Key Functionality
 class write:
     @staticmethod
     def write_key():
         try:
-            # Display a warning message to confirm key creation
-            result = tkinter.messagebox.askquestion("Create Key", "Are you sure you want to create a new key?")
+            result = messagebox.askquestion("Create Key", "Are you sure you want to create a new key?")
             if result == "yes":
-                # Display a second warning message to confirm key replacement
-                result_confirm = tkinter.messagebox.askquestion("Confirmation", "Are you sure? This will replace your old key!")
+                result_confirm = messagebox.askquestion("Confirmation", "Are you sure? This will replace your old key!")
                 if result_confirm == "yes":
-                    # Generate a new key
                     key = Fernet.generate_key()
-                    # Write the new key to a file
                     with open("key.key", 'wb') as key_file:
                         key_file.write(key)
-                    # Display a success message
-                    tkinter.messagebox.showinfo("Key Created", "A new key has been successfully created.")
+                    messagebox.showinfo("Key Created", "A new key has been successfully created.")
                 else:
-                    # Display a message indicating cancellation of key creation
-                    tkinter.messagebox.showinfo("Cancelled", "Key creation has been cancelled.")
+                    messagebox.showinfo("Cancelled", "Key creation has been cancelled.")
             else:
-                # Display a message indicating cancellation of key creation
-                tkinter.messagebox.showinfo("Cancelled", "Key creation has been cancelled.")
+                messagebox.showinfo("Cancelled", "Key creation has been cancelled.")
         except Exception as e:
-            # Display an error message if an exception occurs
-            tkinter.messagebox.showerror("Error", f"An error occurred: {str(e)}")
-        
+            messagebox.showerror("Error", f"An error occurred: {str(e)}")
+
+# Load Key Functionality
 class LoadKey:
-    # Function to load the key from the file
+    @staticmethod
     def load_key():
         try:
-            with open("key.key",) as file:
+            with open("key.key", 'rb') as file:
                 key = file.read()
-                return key 
-            
+                return key
         except FileNotFoundError:
-            tkinter.messagebox.showwarning("Warning","Key file not found")
-            # Prompt user to create a new key if it doesn't exist
-            choice = tkinter.messagebox.askquestion("Create Key","Would you like to create a key?")
+            messagebox.showwarning("Warning", "Key file not found")
+            choice = messagebox.askquestion("Create Key", "Would you like to create a key?")
             if choice == "yes":
                 write.write_key()
-                                
             else:
-                tkinter.messagebox.showinfo("info","If you already have a key, please put it in the current working directory")
+                messagebox.showinfo("info", "If you already have a key, please put it in the current working directory")
 
+# Add Password Functionality
 class add:
+    @staticmethod
     def add():
-        # Create a popup window for user input
         key = LoadKey.load_key()
         fer = Fernet(key)
-        # Site input
         while True:
             site = simpledialog.askstring("Site Name", "Enter the name of the site you wish to add:")
             if site is None:
                 return
             elif site == "":
-                tkinter.messagebox.showerror("Error","Site can not be empty!")
+                messagebox.showerror("Error", "Site can not be empty!")
                 continue
             else:
                 break
-        
-        # Username input
         while True:
             username = simpledialog.askstring("Username", "Enter the username of the site you wish to add:")
             if username is None:
                 return
             if username == "":
-                tkinter.messagebox.showerror("Error","Username can not be empty!")
+                messagebox.showerror("Error", "Username can not be empty!")
                 continue
-            
             else:
                 break
-        
-        # Password input
         while True:
             pwd = simpledialog.askstring("Password", "Enter the password of the site you wish to add:")
             if pwd is None:
                 return
             if pwd == "":
-                tkinter.messagebox.showerror("Error","Password can not be empty!")
+                messagebox.showerror("Error", "Password can not be empty!")
                 continue
             else:
                 with open('passwords.txt', 'a') as file:
                     file.write(site + '|' + username + ' | ' + fer.encrypt(pwd.encode()).decode() + "\n")
-                    tkinter.messagebox.showinfo("Saving.....","Password is saved")
+                    messagebox.showinfo("Saving", "Password is saved")
                 break
 
-# Placeholder for viewing passwords functionality
+# View Passwords Functionality
 class View:
+    @staticmethod
     def display_passwords(text_widget):
         key = LoadKey.load_key()
         fer = Fernet(key)
@@ -171,20 +141,15 @@ class View:
                     site, user, password = data.split("|")
                     decrypted_password = fer.decrypt(password.encode()).decode()
                     text_widget.insert(tk.END, f"Site: {site}\nUser: {user}\nPassword: {decrypted_password}\n\n")
-
         except FileNotFoundError:
-            # If password file doesn't exist, prompt user to create one
-            choice = tkinter.messagebox.askquestion("Error","Can't find the password file. Would you like to create one?")
+            choice = messagebox.askquestion("Error", "Can't find the password file. Would you like to create one?")
             if choice == "yes":
                 add.add()
-
             elif choice == "no":
-                tkinter.messagebox.showwarning("","You need to create the file so You  can store your passwords.")
-                tkinter.messagebox.showinfo("","If you have a file already, please put the file in the working directory.")
-                return
+                messagebox.showwarning("", "You need to create the file so You can store your passwords.")
+                messagebox.showinfo("", "If you have a file already, please put the file in the working directory.")
 
-
-# Entry point of the application
+# Entry Point
 if __name__ == "__main__":
     app = Application()
     app.mainloop()
