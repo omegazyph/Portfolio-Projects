@@ -1,9 +1,5 @@
 import random
 import string
-from tkinter import *
-
-root = Tk()
-root.title("Secure Pass Gen")
 
 def generate_password(length=12, include_uppercase=True, include_lowercase=True, include_digits=True, include_symbols=True):
     characters = ''
@@ -25,5 +21,3 @@ def generate_password(length=12, include_uppercase=True, include_lowercase=True,
 # Example usage
 password = generate_password(length=16, include_uppercase=True, include_lowercase=True, include_digits=True, include_symbols=True)
 print("Generated Password:", password)
-
-root.mainloop()
