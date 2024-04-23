@@ -24,6 +24,7 @@ Below is a list of projects included in this repository:
 4. **Number_quesser** : This program choise a number and you have to quess it might update it later time.
 5. **Quiz_Game**: This program Quizes the user in the computer system, might update at a later time.
 6. **Rock_paper_Scissors**: This program is a classic game, might update it in a later time.
+7. **SecurePassGen**: this is for giving the user a 12 char lenght password.
 
 Each project directory contains its own README file with detailed information about the project.
 
