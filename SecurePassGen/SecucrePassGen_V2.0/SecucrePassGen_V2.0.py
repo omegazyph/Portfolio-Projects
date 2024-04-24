@@ -8,14 +8,22 @@
 # Imports
 import random
 import string
-from tkinter import *
+import tkinter as tk
+from tkinter import messagebox, simpledialog, Text,Toplevel, Button, Label
 
-# Create a window
-root = Tk()
-root.title("Secure Password Generator ")
-root.geometry('400x400')
+# Main App Class
+class App(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("Secure Password Generator ")
+        self.geometry('400x400')
+        self.configure(background="#f0f0f0")
+        
+        # Lable
+        self.main_lable = Label(self, text="Welcome to Secure Password Generator")
 
-gen_button = Button(root, text="Gen password", command=GenPass.generate_password).pack()
+        # button
+        self.gen_button = Button(self, text="Gen password", command=GenPass.generate_password).pack()
 
 class GenPass:
     def generate_password(length=12, include_uppercase=True, include_lowercase=True, include_digits=True, include_symbols=True):
@@ -36,10 +44,12 @@ class GenPass:
         return password
 
 # Example usage
-password = generate_password(length=16, include_uppercase=True, include_lowercase=True, include_digits=True, include_symbols=True)
+password = GenPass.generate_password(length=16, include_uppercase=True, include_lowercase=True, include_digits=True, include_symbols=True)
 print("Generated Password:", password)
 
 
 
-# start the window
-root.mainloop()
+# Entry Point
+if __name__ == "__main__":
+    window = App()
+    window.mainloop()    
