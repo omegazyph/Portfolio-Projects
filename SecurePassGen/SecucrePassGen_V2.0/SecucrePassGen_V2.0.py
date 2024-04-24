@@ -16,14 +16,27 @@ class App(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("Secure Password Generator ")
-        self.geometry('400x400')
+        self.geometry('400x200')
         self.configure(background="#f0f0f0")
         
-        # Lable
-        self.main_lable = Label(self, text="Welcome to Secure Password Generator")
+        # Create a Label widget with text
+        self.main_lable = Label(self, 
+                                text="Welcome to Secure Password Generator", 
+                                font=("Helvetica", 16),
+                                bg="#f0f0f0", 
+                                fg="#333333")
+        self.main_lable.pack(pady=20)
 
-        # button
-        self.gen_button = Button(self, text="Gen password", command=GenPass.generate_password).pack()
+        # Create a Button widget
+        self.gen_button = Button(self, 
+                                 text="Gen password", 
+                                 command=GenPass.generate_password)
+        self.gen_button.pack(pady=20)
+
+
+        # Create a Label widget with text
+        text_label = tk.Label(self, text="Password here!")
+        text_label.pack()
 
 class GenPass:
     def generate_password(length=12, include_uppercase=True, include_lowercase=True, include_digits=True, include_symbols=True):
