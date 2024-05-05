@@ -13,24 +13,32 @@ from cryptography.fernet import Fernet  # Import Fernet from the cryptography li
 # Master Password (Change this to your desired master password)
 MASTER_PASSWORD = "12345"  # Define the master password
 
+# color Varables
+bg_color = 'Black'
+fg_color = 'White'
+btn_color = 'Lightblue'
+
 # Main Application Class
 class Application(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("Password Manager V3.0")  # Set the title of the application window
         self.geometry("400x300")  # Set the size of the application window
-        self.configure(background="#f0f0f0")  # Set the background color of the application window
+        self.configure(bg=bg_color)  # Set the background color of the application window
         
         # Widgets
-        self.welcome_label = Label(self, text="Welcome to Password Manager V3.0", font=("Helvetica", 16), bg="#f0f0f0", fg="#333333")
+        self.welcome_label = Label(self, text="Welcome to Password Manager V3.0", font=("Helvetica", 16), bg=bg_color, fg=fg_color)
         self.welcome_label.pack(pady=20)  # Create a label widget and pack it into the window
         
         # Buttons for different functionalities
-        self.write = Button(self, text="Create a Key", command=write.write_key)
+        
+        self.write = Button(self, text="Create a Key", command=write.write_key,bg=btn_color)
         self.write.pack(side=tk.LEFT, padx=5)  # Create a button widget for creating a key
-        self.add = Button(self, text="Add a password", command=add.add)
+
+        self.add = Button(self, text="Add a password", command=add.add, bg=btn_color)
         self.add.pack(side=tk.LEFT, padx=5)  # Create a button widget for adding a password
-        self.view = Button(self, text="View Passwords", command=self.view_passwords)
+        
+        self.view = Button(self, text="View Passwords", command=self.view_passwords, bg=btn_color)
         self.view.pack(side=tk.LEFT, padx=5)  # Create a button widget for viewing passwords
 
     # Master Password Validation
