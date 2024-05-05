@@ -9,6 +9,7 @@
 import tkinter as tk  # Import the Tkinter library
 from tkinter import messagebox, simpledialog, Text, Toplevel, Button, Label  # Import specific components from Tkinter
 from cryptography.fernet import Fernet  # Import Fernet from the cryptography library
+import os  # Import os module for file operations
 
 # Master Password (Change this to your desired master password)
 MASTER_PASSWORD = "12345"  # Define the master password
@@ -30,11 +31,12 @@ class Application(tk.Tk):
         self.welcome_label = Label(self, text="Welcome to Password Manager V3.0", font=("Helvetica", 16), bg=bg_color, fg=fg_color)
         self.welcome_label.pack(pady=20)  # Create a label widget and pack it into the window
         
-        # Buttons for different functionalities
+        # Check if key file exists
+        if not os.path.exists("key.key"):
+            self.write_key_lable = Label(self, text="Only if you need a new key")
+            self.write = Button(self, text="Create a Key", command=write.write_key, bg=btn_color)
+            self.write.pack(side=tk.LEFT, padx=5)  # Create a button widget for creating a key
         
-        self.write = Button(self, text="Create a Key", command=write.write_key,bg=btn_color)
-        self.write.pack(side=tk.LEFT, padx=5)  # Create a button widget for creating a key
-
         self.add = Button(self, text="Add a password", command=add.add, bg=btn_color)
         self.add.pack(side=tk.LEFT, padx=5)  # Create a button widget for adding a password
         
