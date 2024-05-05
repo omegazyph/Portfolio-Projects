@@ -33,15 +33,15 @@ class Application(tk.Tk):
         
         # Check if key file exists
         if not os.path.exists("key.key"):
-            self.write_key_lable = Label(self, text="Only if you need a new key")
+            self.write_key_lable = Label(self, text="Your key is missing",bg=bg_color,fg=fg_color).pack()
             self.write = Button(self, text="Create a Key", command=write.write_key, bg=btn_color)
-            self.write.pack(side=tk.LEFT, padx=5)  # Create a button widget for creating a key
+            self.write.pack(pady=5)  # Create a button widget for creating a key
         
         self.add = Button(self, text="Add a password", command=add.add, bg=btn_color)
-        self.add.pack(side=tk.LEFT, padx=5)  # Create a button widget for adding a password
+        self.add.pack(pady=5)  # Create a button widget for adding a password
         
         self.view = Button(self, text="View Passwords", command=self.view_passwords, bg=btn_color)
-        self.view.pack(side=tk.LEFT, padx=5)  # Create a button widget for viewing passwords
+        self.view.pack(pady=5)  # Create a button widget for viewing passwords
 
     # Master Password Validation
     def check_master_password(self):
