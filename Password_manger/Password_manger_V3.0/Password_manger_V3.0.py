@@ -6,34 +6,32 @@
 ########################################################
 
 # Imports
-import tkinter as tk
-from tkinter import messagebox, simpledialog, Text, Toplevel, Button, Label
-from cryptography.fernet import Fernet
+import tkinter as tk  # Import the Tkinter library
+from tkinter import messagebox, simpledialog, Text, Toplevel, Button, Label  # Import specific components from Tkinter
+from cryptography.fernet import Fernet  # Import Fernet from the cryptography library
 
 # Master Password (Change this to your desired master password)
-MASTER_PASSWORD = "12345"
+MASTER_PASSWORD = "12345"  # Define the master password
 
 # Main Application Class
 class Application(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title("Password Manager V3.0")
-        self.geometry("400x300")
-        self.configure(background="#f0f0f0")
-        # Uncomment the line below to enable master password checking
-        # self.check_master_password()
-
+        self.title("Password Manager V3.0")  # Set the title of the application window
+        self.geometry("400x300")  # Set the size of the application window
+        self.configure(background="#f0f0f0")  # Set the background color of the application window
+        
         # Widgets
         self.welcome_label = Label(self, text="Welcome to Password Manager V3.0", font=("Helvetica", 16), bg="#f0f0f0", fg="#333333")
-        self.welcome_label.pack(pady=20)
+        self.welcome_label.pack(pady=20)  # Create a label widget and pack it into the window
         
         # Buttons for different functionalities
         self.write = Button(self, text="Create a Key", command=write.write_key)
-        self.write.pack(side=tk.LEFT, padx=5)
+        self.write.pack(side=tk.LEFT, padx=5)  # Create a button widget for creating a key
         self.add = Button(self, text="Add a password", command=add.add)
-        self.add.pack(side=tk.LEFT, padx=5)
+        self.add.pack(side=tk.LEFT, padx=5)  # Create a button widget for adding a password
         self.view = Button(self, text="View Passwords", command=self.view_passwords)
-        self.view.pack(side=tk.LEFT, padx=5)
+        self.view.pack(side=tk.LEFT, padx=5)  # Create a button widget for viewing passwords
 
     # Master Password Validation
     def check_master_password(self):
@@ -50,10 +48,10 @@ class Application(tk.Tk):
     # View Passwords Functionality
     def view_passwords(self):
         passwords_window = Toplevel(self)
-        passwords_window.title("Password List")
+        passwords_window.title("Password List")  # Create a new window for displaying passwords
         text_widget = Text(passwords_window)
-        text_widget.pack(fill=tk.BOTH, expand=True)
-        View.display_passwords(text_widget)
+        text_widget.pack(fill=tk.BOTH, expand=True)  # Create a text widget to display passwords
+        View.display_passwords(text_widget)  # Call the display_passwords method from the View class
 
 # Write Key Functionality
 class write:
@@ -64,16 +62,16 @@ class write:
             if result == "yes":
                 result_confirm = messagebox.askquestion("Confirmation", "Are you sure? This will replace your old key!")
                 if result_confirm == "yes":
-                    key = Fernet.generate_key()
+                    key = Fernet.generate_key()  # Generate a new encryption key
                     with open("key.key", 'wb') as key_file:
-                        key_file.write(key)
-                    messagebox.showinfo("Key Created", "A new key has been successfully created.")
+                        key_file.write(key)  # Write the key to a file
+                    messagebox.showinfo("Key Created", "A new key has been successfully created.")  # Display a message indicating successful key creation
                 else:
-                    messagebox.showinfo("Cancelled", "Key creation has been cancelled.")
+                    messagebox.showinfo("Cancelled", "Key creation has been cancelled.")  # Display a message indicating key creation cancellation
             else:
-                messagebox.showinfo("Cancelled", "Key creation has been cancelled.")
+                messagebox.showinfo("Cancelled", "Key creation has been cancelled.")  # Display a message indicating key creation cancellation
         except Exception as e:
-            messagebox.showerror("Error", f"An error occurred: {str(e)}")
+            messagebox.showerror("Error", f"An error occurred: {str(e)}")  # Display an error message if an exception occurs
 
 # Load Key Functionality
 class LoadKey:
@@ -81,15 +79,15 @@ class LoadKey:
     def load_key():
         try:
             with open("key.key", 'rb') as file:
-                key = file.read()
-                return key
+                key = file.read()  # Read the key from the file
+                return key  # Return the key
         except FileNotFoundError:
-            messagebox.showwarning("Warning", "Key file not found")
+            messagebox.showwarning("Warning", "Key file not found")  # Display a warning message if the key file is not found
             choice = messagebox.askquestion("Create Key", "Would you like to create a key?")
             if choice == "yes":
-                write.write_key()
+                write.write_key()  # Call the write_key method if the user chooses to create a new key
             else:
-                messagebox.showinfo("info", "If you already have a key, please put it in the current working directory")
+                messagebox.showinfo("info", "If you already have a key, please put it in the current working directory")  # Display an information message
 
 # Add Password Functionality
 class add:
@@ -124,7 +122,7 @@ class add:
                 continue
             else:
                 with open('passwords.txt', 'a') as file:
-                    file.write(site + '|' + username + ' | ' + fer.encrypt(pwd.encode()).decode() + "\n")
+                    file.write(site + '|' + username + ' | ' + fer.encrypt(pwd.encode()).decode() + "\n")  # Encrypt the password and write it to a file
                     messagebox.showinfo("Saving", "Password is saved")
                 break
 
