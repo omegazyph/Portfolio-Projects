@@ -136,10 +136,20 @@ class View:
         fer = Fernet(key)
         try:
             with open('passwords.txt', 'r') as file:
+                # Read passwords and store them in a list of tuples (site, user, password)
+                passwords = []
                 for line in file.readlines():
                     data = line.rstrip()
                     site, user, password = data.split("|")
                     decrypted_password = fer.decrypt(password.encode()).decode()
+                    passwords.append((site, user, decrypted_password))
+                
+                # Sort passwords by site name
+                sorted_passwords = sorted(passwords, key=lambda x: x[0])
+                
+                # Display sorted passwords
+                for password in sorted_passwords:
+                    site, user, decrypted_password = password
                     text_widget.insert(tk.END, f"Site: {site}\nUser: {user}\nPassword: {decrypted_password}\n\n")
         except FileNotFoundError:
             choice = messagebox.askquestion("Error", "Can't find the password file. Would you like to create one?")
