@@ -18,6 +18,7 @@ MASTER_PASSWORD = "12345"  # Define the master password
 bg_color = 'Black'
 fg_color = 'White'
 btn_color = 'Lightblue'
+warning = 'Red'
 
 # Main Application Class
 class Application(tk.Tk):
@@ -33,7 +34,7 @@ class Application(tk.Tk):
         
         # Check if key file exists
         if not os.path.exists("key.key"):
-            self.write_key_lable = Label(self, text="Your key is missing",bg=bg_color,fg=fg_color).pack()
+            self.write_key_lable = Label(self, text="Your key is missing",bg=bg_color,fg=warning,font=("Helvetica", 16)).pack()
             self.write = Button(self, text="Create a Key", command=write.write_key, bg=btn_color)
             self.write.pack(pady=5)  # Create a button widget for creating a key
         
