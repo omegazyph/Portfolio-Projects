@@ -27,7 +27,9 @@ class Application(tk.Tk):
         self.title("Password Manager V3.0")  # Set the title of the application window
         self.geometry("400x300")  # Set the size of the application window
         self.configure(bg=bg_color)  # Set the background color of the application window
-        
+        # leave in and uncommet when needed
+        #self.check_master_password() # check for the master password
+
         # Widgets
         self.welcome_label = Label(self, text="Welcome to Password Manager V3.0", font=("Helvetica", 16), bg=bg_color, fg=fg_color)
         self.welcome_label.pack(pady=20)  # Create a label widget and pack it into the window
