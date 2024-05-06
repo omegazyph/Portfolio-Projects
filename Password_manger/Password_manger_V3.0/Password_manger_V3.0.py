@@ -28,7 +28,7 @@ class Application(tk.Tk):
         self.geometry("400x300")  # Set the size of the application window
         self.configure(bg=bg_color)  # Set the background color of the application window
         # leave in and uncommet when needed
-        #self.check_master_password() # check for the master password
+        self.check_master_password() # check for the master password
 
         # Widgets
         self.welcome_label = Label(self, text="Welcome to Password Manager V3.0", font=("Helvetica", 16), bg=bg_color, fg=fg_color)
@@ -45,6 +45,10 @@ class Application(tk.Tk):
         
         self.view = Button(self, text="View Passwords", command=self.view_passwords, bg=btn_color)
         self.view.pack(pady=5)  # Create a button widget for viewing passwords
+
+        self.view = Button(self, text="Change Master Password", command=self.view_passwords, bg=btn_color)
+        self.view.pack(side=tk.RIGHT, anchor=tk.SE, padx=10, pady=10)  # Create a button widget for viewing passwords
+
 
     # Master Password Validation
     def check_master_password(self):
