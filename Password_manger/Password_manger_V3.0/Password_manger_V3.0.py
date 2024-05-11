@@ -46,6 +46,7 @@ class Application(tk.Tk):
         self.view = Button(self, text="View Passwords", command=self.view_passwords, bg=btn_color)
         self.view.pack(pady=5)  # Create a button widget for viewing passwords
 
+        # need to work on
         self.view = Button(self, text="Change Master Password", command=self.view_passwords, bg=btn_color)
         self.view.pack(side=tk.RIGHT, anchor=tk.SE, padx=10, pady=10)  # Create a button widget for viewing passwords
 
